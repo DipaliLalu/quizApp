@@ -3,9 +3,9 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 const Ripple = React.memo(function Ripple({
-  mainCircleSize = 220,
+  mainCircleSize = 120,
   mainCircleOpacity = 0.24,
-  numCircles = 8,
+  numCircles = 7,
   className
 }) {
   return (

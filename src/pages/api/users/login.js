@@ -24,13 +24,20 @@ export default async function handler(req, res) {
             const tokenData = {
                 id: user._id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                role:user.isAdmin
             }
             const token = JsonWebToken.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '1d' })
-            res.setHeader("Set-Cookie", `token=${token}; HttpOnly;`);
+            res.setHeader(
+                "Set-Cookie",
+                `token=${token}; HttpOnly; Path=/; Max-Age=3600;` // Expires in 1 hour
+            );
+            
+            const redirectUrl = user.isAdmin ? "/admin" : "/"; 
             const response = res.json({
                 message: "login success",
-                success: true
+                success: true,
+                redirectUrl
             })
 
 

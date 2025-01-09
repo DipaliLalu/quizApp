@@ -5,6 +5,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import { toast } from 'react-hot-toast'
 import Ripple from '@/components/ui/ripple';
+import { Loader2 } from 'lucide-react';
 
 
 function Signup() {
@@ -109,7 +110,7 @@ function Signup() {
                     />
                     <p>Already Have An Account? <Link href={'/auth/signin'} className='underline'> Sign In </Link></p>
                     <Button type="submit" color='primary'>
-                        {loading ? "Submitting..." : "Submit"}
+                        {loading ? <Loader2 className="animate-spin" />: "Submit"}
                     </Button>
                 </Form>
             </div>
