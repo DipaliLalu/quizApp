@@ -1,4 +1,5 @@
 import { WarpBackground } from '@/components/ui/warp-background';
+import { endPoint } from '@/helper/axios';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import axios from 'axios';
 import Link from 'next/link'
@@ -11,7 +12,8 @@ function verify() {
  
   const verifyUserEmail = async () => {
     try {
-      await axios.post("/api/users/verifyemail", token);
+       const url=endPoint.auth.verifyEmail;
+      await axios.post(url, token);
     } catch (error) {
       console.log(error.message)
     }

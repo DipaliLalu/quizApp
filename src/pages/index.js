@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { endPoint } from "@/helper/axios";
 import axios from "axios";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast"
 
@@ -8,7 +8,8 @@ export default function App() {
   const router=useRouter();
   const logout = async () => {
     try {
-      await axios.get('api/users/logout');
+       const url=endPoint.auth.logOut;
+      await axios.get(url);
       toast.success("Logout successfully");
       router.push('/auth/signin')
     } catch (error) {
