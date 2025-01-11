@@ -7,7 +7,7 @@ connect();
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const {question,option1,option2,option3,option4,correctAnswer} = req.body;
+      const { question, options, correctAnswer } = req.body;
 
       const existingQuestion = await Question.findOne({ question });
       if (existingQuestion) {
@@ -16,10 +16,7 @@ export default async function handler(req, res) {
 
       const newQuestion = new Question({
         question,
-        option1,
-        option2,
-        option3,
-        option4,
+        options,
         correctAnswer
       });
       const savedQuestion = await newQuestion.save(); // Await the save call

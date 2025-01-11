@@ -6,7 +6,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,14 +14,15 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { endPoint } from '@/helper/axios';
 
 const formSchema = z.object({
-  question: z.string(),
-  option1: z.string(),
-  option2: z.string(),
-  option3: z.string(),
-  option4: z.string(),
-  correctAnswer: z.string(),
+  question: z.string().nonempty({ message: "question 4 is required" }),
+  option1: z.string().nonempty({ message: "Option 1 is required" }),
+  option2: z.string().nonempty({ message: "Option 2 is required" }),
+  option3: z.string().nonempty({ message: "Option 3 is required" }),
+  option4: z.string().nonempty({ message: "Option 4 is required" }),
+  correctAnswer: z.string().nonempty({ message: "correctAnswer 4 is required" }),
 });
 
 function Index() {
@@ -39,29 +39,34 @@ function Index() {
     },
   });
 
+  console.log(form.formState.errors);
   const onSubmit = async (values) => {
     try {
-          setLoading(true);
-          await axios.post('api/question/addQuestion', values);
-          toast.success("Question added successfully!");
-          form.reset(); 
-        } catch (error) {
-          const message = error.response?.data?.message || 'Something went wrong';
-          toast.error(message);
-        } finally {
-          setLoading(false);
-        }
+      setLoading(true);
+      const { option1, option2, option3, option4, ...rest } = values;
+      const payload = {
+        ...rest,
+        options: [option1, option2, option3, option4],
+      };
+      const url = endPoint.admin.addQuestion;
+      await axios.post(url, payload);
+      toast.success("Question added successfully!");
+      form.reset();
+    } catch (error) {
+      const message = error.response?.data?.message || 'Something went wrong';
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
-    <div
-      className="h-screen bg-center flex justify-center items-center"
-      style={{ backgroundImage: "url('bg.png')" }}
-    >
-      <Form>
+    <div className="bg-center flex justify-center items-center bg-fixed p-8 min-h-screen">
+      <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 border-4 border-white p-6 rounded-lg w-1/2 backdrop-blur-sm"
+          className="space-y-4 border-4 border-gray-600 p-6 rounded-lg w-1/2 backdrop-blur-sm"
         >
+          <h1 className='text-lg font-bold'>Add Question Form</h1>
           <FormField
             control={form.control}
             name="question"
@@ -82,6 +87,7 @@ function Index() {
               name={option}
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel />
                   <FormControl>
                     <Input placeholder={`Option ${index + 1}`} {...field} />
                   </FormControl>

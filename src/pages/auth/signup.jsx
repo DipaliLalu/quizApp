@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast'
 import Ripple from '@/components/ui/ripple';
 import { Loader2 } from 'lucide-react';
+import { endPoint } from '@/helper/axios';
 
 
 function Signup() {
@@ -26,7 +27,8 @@ function Signup() {
         e.preventDefault();
         try {
             setLoading(true)
-            const response = await axios.post('/api/users/signup', formData);
+             const url=endPoint.auth.signUp;
+            const response = await axios.post(url, formData);
             toast.success("Signup successfully");
             setFormData({ username: '', email: '', password: '' });
             setLoading(false)

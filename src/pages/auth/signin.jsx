@@ -1,4 +1,5 @@
 import Ripple from '@/components/ui/ripple';
+import { endPoint } from '@/helper/axios';
 import { Form, Input, Button } from '@nextui-org/react';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
@@ -27,8 +28,11 @@ function Signin() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
-      const response = await axios.post('/api/users/login', formData);
+      setLoading(true);
+      const url=endPoint.auth.signIn;
+      const response=await axios.post(url,formData);
+      // const response = await axios.post('/api/users/login', formData);
+
       toast.success("Login successfully");
       router.push(response.data.redirectUrl);
       setFormData({ username: '', password: '' });
