@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { endPoint } from "@/helper/axios";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast"
 
@@ -19,7 +20,7 @@ export default function App() {
   }
   return (
     <div className="h-screen bg-center p-10" style={{ backgroundImage: "url('bg.png')" }}>
-      <nav className="flex justify-between w-5/6 m-auto">
+      <nav className="flex justify-between md:w-5/6 w-full m-auto">
         <div className="font-bold text-2xl">Quizzes</div>
         <div onClick={logout}>
           <Button>
@@ -27,12 +28,12 @@ export default function App() {
           </Button>
         </div>
       </nav>
-      <main className="flex justify-center w-5/6 m-auto items-start gap-8 h-full flex-col">
+      <main className="flex justify-center md:w-5/6 w-full m-auto items-start gap-8 h-full flex-col">
         <h1 className="text-3xl">
           Let&apos;s start quiz
         </h1>
-        <p className="w-2/5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id cum eius, numquam hic sunt omnis porro minus voluptatem necessitatibus.</p>
-        <Button size='lg' className='font-bold text-base'>Start</Button>
+        <p className="md:w-2/5 w-full">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id cum eius, numquam hic sunt omnis porro minus voluptatem necessitatibus.</p>
+        <Button size='lg' className='font-bold text-base'><Link href={'/quiz'}>Start</Link></Button>
       </main>
     </div>
   );

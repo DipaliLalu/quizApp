@@ -43,13 +43,13 @@ function Signup() {
 
     return (
 
-        <div className='w-full flex flex-col justify-center items-center h-screen'>
-            <Ripple />
-            <div className=' flex flex-col gap-4 border-4 p-5 rounded-xl border-slate-400'>
+        <div className='w-screen flex flex-col justify-center items-center min-h-screen p-4'>
+            <Ripple className='md:block hidden'/>
+            <div className=' flex flex-col gap-4 border-4 p-5 mg:p-8 rounded-xl border-slate-400'>
 
                 <h2 className='text-2xl font-semibold text-blue-900'>Sign Up</h2>
 
-                <Form className="w-96 max-w-xs" validationBehavior="native" onSubmit={onSubmit}>
+                <Form className="w-full md:max-w-xs" validationBehavior="native" onSubmit={onSubmit}>
                     <Input
                         isRequired
                         label="Username"
