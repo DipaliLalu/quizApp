@@ -64,7 +64,7 @@ function Index() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 border-4 border-gray-600 p-6 rounded-lg w-1/2 backdrop-blur-sm"
+          className="space-y-4 border-4 border-gray-600 p-6 rounded-lg md:w-1/2 w-full backdrop-blur-sm"
         >
           <h1 className='text-lg font-bold'>Add Question Form</h1>
           <FormField
