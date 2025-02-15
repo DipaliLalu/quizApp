@@ -1,16 +1,21 @@
 import { NextResponse } from "next/server";
-import cookie from "cookie";
+import * as cookie from "cookie"; 
 
 export function middleware(request) {
   const rawCookies = request.headers.get("cookie") || "";
-  const cookies = cookie.parse(rawCookies);
+  const cookies = rawCookies
+    .split(";")
+    .reduce((acc, cookieStr) => {
+      const [key, value] = cookieStr.trim().split("=");
+      acc[key] = value;
+      return acc;
+    }, {});
+
   const token = cookies.token;
-  
   const path = request.nextUrl.pathname;
   const publicPaths = ["/auth/signin", "/auth/signup", "/auth/verifyemail"];
 
   let role = null;
-
   if (token && token.split(".").length === 3) {
     try {
       const base64Decode = (str) => Buffer.from(str, "base64").toString("utf-8");
@@ -38,5 +43,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/", "/auth/:path*", "/admin/:path*"], // Ensure admin matches subpaths
+  matcher: ["/", "/auth/:path*", "/admin/:path*"], 
 };
