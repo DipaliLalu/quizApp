@@ -5,6 +5,9 @@ import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react'
 import toast from 'react-hot-toast';
 import Confetti from "@/components/ui/confetti";
+import { useRouter } from "next/router";
+import Link from 'next/link';
+
 
 function Quiz() {
     const confettiRef = useRef(null);
@@ -13,6 +16,7 @@ function Quiz() {
     const [selectedOption, setSelectedOption] = useState('');
     const [quizComplete, setQuizComplete] = useState(false);
     const [questions, setQuestion] = useState('');
+    const router = useRouter();
 
     const getQuestion = async () => {
         try {
@@ -50,7 +54,11 @@ function Quiz() {
                 <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
                     Congratulations
                 </span>
-                <div className='text-2xl'>Score is: {score}</div>
+                <div className='text-2xl mb-5'>Score is: {score}</div>
+                {/* <Button onClick={() => (window.location.href = "/")}>Go to Home Page</Button> */}
+                <Button onClick={() => router.push("/")}>
+                    Go to Home Page
+                </Button>
 
                 <Confetti
                     ref={confettiRef}
@@ -66,7 +74,7 @@ function Quiz() {
         <div className="bg-center flex justify-center items-center bg-fixed flex-col p-8 min-h-screen">
             <div className='md:w-1/2 w-full flex flex-col gap-4'>
                 {questions && (
-                    <><div>{currectQuestion+1}. {questions[currectQuestion].question}</div>
+                    <><div>{currectQuestion + 1}. {questions[currectQuestion].question}</div>
                         <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}
                         >
                             <div className='flex flex-col gap-2'>
@@ -75,7 +83,7 @@ function Quiz() {
                                 })}
                             </div>
                             <div className='flex justify-end'>
-                                <Button className='w-4/12' onClick={() => handleClick(questions[currectQuestion].correctAnswer)}>{currectQuestion<9?"Next":"Finish"}</Button>
+                                <Button className='w-4/12' onClick={() => handleClick(questions[currectQuestion].correctAnswer)}>{currectQuestion < 9 ? "Next" : "Finish"}</Button>
                             </div>
                         </form></>)
                 }

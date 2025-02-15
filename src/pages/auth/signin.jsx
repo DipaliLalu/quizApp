@@ -47,10 +47,10 @@ function Signin() {
   return (
     <div className='w-full flex justify-center items-center min-h-screen'>
       <Ripple className='md:block hidden'/>
-      <div className=' flex flex-col gap-7 border-4 p-7 rounded-xl border-slate-400'>
+      <div className='flex flex-col gap-7 border-4 p-9 rounded-xl border-slate-400'>
 
         <h2 className='text-2xl font-semibold text-blue-900'>Sign In</h2>
-        <Form className="w-full md:max-w-xs flex flex-col gap-5" validationBehavior="native" onSubmit={onSubmit}>
+        <Form className="w-full flex flex-col gap-5" validationBehavior="native" onSubmit={onSubmit}>
           <Input
             isRequired
             label="Username"

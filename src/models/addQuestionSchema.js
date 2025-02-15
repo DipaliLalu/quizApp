@@ -21,5 +21,5 @@ const addQuestionSchema = new mongoose.Schema({
 });
 
 // Export the model
-const Question = mongoose.models.Question || mongoose.model("Question", addQuestionSchema);
+const Question = mongoose.models.questions || mongoose.model("questions", addQuestionSchema);
 export default Question;
